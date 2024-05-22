@@ -38,4 +38,5 @@ data class Respuesta(
     val outfit: Outfit,
     val outfits: List<Outfit>,
     val usuario: User
-) : Serializable
+) : Serializable {
+}

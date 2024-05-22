@@ -6,6 +6,7 @@ package com.example.trendblender.viewModel
     import com.example.trendblender.models.Outfit
     import com.example.trendblender.models.Piece
     import com.example.trendblender.models.User
+    import kotlinx.coroutines.Dispatchers
     import kotlinx.coroutines.Dispatchers.Main
     import kotlinx.coroutines.GlobalScope
     import kotlinx.coroutines.launch
@@ -100,5 +101,14 @@ package com.example.trendblender.viewModel
                 generatedOutfit.value = repository.generateOutfit(userId, style, weather, categories)
             }
             return generatedOutfit
+        }
+        val userLiveData = MutableLiveData<User?>()
+        val loginResult = MutableLiveData<Boolean>()
+
+        fun authenticateUser(username: String, password: String) {
+            GlobalScope.launch(Dispatchers.Main) {
+                val result = repository.authenticateUser(username, password)
+                loginResult.value = result
+            }
         }
     }

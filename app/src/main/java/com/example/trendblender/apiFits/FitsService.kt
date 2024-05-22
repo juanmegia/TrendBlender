@@ -21,6 +21,8 @@ interface FitsService {
 
     @DELETE("pieces/{id}")
     suspend fun deletePiece(@Path("id") id: String):  Deferred<Response<Respuesta>>
+    @GET("users/")
+    suspend fun getUserByUsername(@Query("username") username: String): Response<Respuesta>
 
     @GET("piece_category/")
     suspend fun getPieceCategory(

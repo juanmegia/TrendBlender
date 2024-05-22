@@ -2,6 +2,7 @@ package com.example.trendblender.apiFits
 
     import com.example.trendblender.models.Piece;
     import com.example.trendblender.models.Outfit;
+    import com.example.trendblender.models.Respuesta
     import com.example.trendblender.models.User
 
 class MainRepository {
@@ -103,4 +104,19 @@ class MainRepository {
                 null
             }
         }
+    suspend fun getUserByUsername(username: String): Respuesta? {
+        val response = fitsService.getUserByUsername(username)
+        return if (response.isSuccessful) {
+            response.body()
+        } else {
+            null
+        }
     }
+
+    suspend fun authenticateUser(username: String, password: String): Boolean {
+        val respuesta = getUserByUsername(username)
+        val user = respuesta?.usuario // Suponiendo que tu objeto Respuesta tiene una propiedad llamada 'user' que contiene el objeto User
+        return user?.password == password // Note: Use hashing in real applications
+    }
+
+}
